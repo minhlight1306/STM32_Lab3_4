@@ -1,0 +1,5 @@
+led_traffic.c:11:6:clearAllLed	8	static
+led_traffic.c:19:6:red_on	16	static
+led_traffic.c:38:6:green_on	16	static
+led_traffic.c:55:6:yellow_on	16	static
+led_traffic.c:71:6:traffic_automatic	8	static
