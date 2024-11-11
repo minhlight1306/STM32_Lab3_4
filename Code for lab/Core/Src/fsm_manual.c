@@ -7,7 +7,7 @@
 
 #include "fsm_manual.h"
 
-void ifButtonLongPressed(){
+void toAutomatic(){
 		status = AUTO_RED_GREEN;
 		clearAllLed();
 		while(temp_count[0] != temp_count[1] + temp_count[2]){
@@ -28,7 +28,6 @@ void ifButtonLongPressed(){
 		count[2] = temp_count[2];
 		led_count[0] = count[0];
 		led_count[1] = count[2];
-		//updateBuffer(led_count[1], led_count[0]);
 		setTimer(0, count[2] * 1000);
 }
 void fsm_manual_run(){
@@ -45,7 +44,7 @@ void fsm_manual_run(){
 				updateBuffer(MODE_3 - 11, temp_count[1]);
 				setTimer(1, 500);
 				setTimer(2, 500);
-				//temp_count[0] = count[0];
+				count[0] = temp_count[0];
 			}
 			else if(isButtonPressed(2)){
 				temp_count[0]++;
@@ -56,8 +55,7 @@ void fsm_manual_run(){
 			else if(isButtonPressed(3)){
 				count[0] = temp_count[0];
 			}
-			else if(isButtonLongPressed(1))
-				ifButtonLongPressed();
+
 			break;
 		case MODE_3:
 			scan7led();
@@ -71,7 +69,7 @@ void fsm_manual_run(){
 				updateBuffer(MODE_4 - 11, temp_count[2]);
 				setTimer(1, 500);
 				setTimer(2, 500);
-				//temp_count[1] = count[1];
+				count[1] = temp_count[1];
 			}
 			else if(isButtonPressed(2)){
 				temp_count[1]++;
@@ -82,8 +80,7 @@ void fsm_manual_run(){
 			else if(isButtonPressed(3)){
 				count[1] = temp_count[1];
 			}
-			else if(isButtonLongPressed(1))
-				ifButtonLongPressed();
+
 			break;
 		case MODE_4:
 			scan7led();
@@ -91,8 +88,8 @@ void fsm_manual_run(){
 				HAL_GPIO_TogglePin(GPIOB, LED2_Pin | LED5_Pin);
 				setTimer(2, 500);
 			}
-			if(isButtonPressed(1) || isButtonLongPressed(1)){
-				ifButtonLongPressed();
+			if(isButtonPressed(1)){
+				toAutomatic();//so sanh dieu kien va cap nhat gia tri
 			}
 			else if(isButtonPressed(2)){
 				temp_count[2]++;
