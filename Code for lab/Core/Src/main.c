@@ -98,6 +98,7 @@ int main(void)
   setTimer(1, 100);//scan led 7 segment
   setTimer(2, 100);//update led buffer
   setTimer(4, 100);//toggle led0
+
   while (1)
   {
 	  fsm_automatic_run();
@@ -249,8 +250,9 @@ static void MX_GPIO_Init(void)
 
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 {
-	timerRun();
+//	timerRun();
 	getKeyInput();
+	SCH_Update();
 }
 /* USER CODE END 4 */
 
