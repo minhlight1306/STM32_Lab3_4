@@ -67,8 +67,5 @@ void update7SEG(int index) {
 	}
 }
 void scan7led(){
-	if(isTimerExpired(1)){
 		update7SEG(index_led);
-		setTimer(1, 250);
-	}
 }

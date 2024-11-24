@@ -12,7 +12,7 @@
 
 #define NORMAL_STATE SET
 #define PRESSED_STATE RESET
-#define NUM_OF_BUTTON 3
+#define NUM_OF_BUTTON 4
 
 extern int button_flag[NUM_OF_BUTTON];
 extern int TimeOutForKeyPress[NUM_OF_BUTTON];

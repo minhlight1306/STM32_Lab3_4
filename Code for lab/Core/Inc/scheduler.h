@@ -20,7 +20,7 @@ typedef struct{
 	uint32_t TaskID;
 }sTasks;
 
-#define SCH_MAX_TASKS 10
+#define SCH_MAX_TASKS 20
 #define NO_TASK_ID 0
 sTasks SCH_tasks_G[SCH_MAX_TASKS];
 

@@ -6,7 +6,7 @@ int timerCounter[10];
 int timerFlag[10];
 
 void setTimer(int index, int counter){
-	timerCounter[index] = counter/10;
+	timerCounter[index] = counter/TICK;
 	timerFlag[index] = 0;
 }
 void timerRun(){

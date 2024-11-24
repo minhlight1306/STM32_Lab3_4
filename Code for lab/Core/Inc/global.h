@@ -18,7 +18,7 @@
 #define MODE_2	13
 #define MODE_3 14
 #define MODE_4 15
-
+#define TICK 10
 
 #include "led_traffic.h"
 #include "software_timer.h"

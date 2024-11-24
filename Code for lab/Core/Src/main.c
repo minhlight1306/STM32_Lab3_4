@@ -59,10 +59,7 @@ static void MX_GPIO_Init(void);
 void blinky(){
 	  HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
 }
-void fsm(){
-	  fsm_automatic_run();
-	  fsm_manual_run();
-}
+
 /* USER CODE END 0 */
 
 /**
@@ -100,9 +97,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_Add_Task(fsm, 0, 1000, 1);//time automatic
-  SCH_Add_Task(scan7led, 0, 250, 2);//scan led 7 segment
-  SCH_Add_Task(counter, 0, 1000, 3);//update led buffer
+  SCH_Add_Task(fsm_automatic_run, 0, 1000, 1);//time automatic
+  SCH_Add_Task(fsm_manual_run, 0, 500, 2);//time manual
+  SCH_Add_Task(scan7led, 0, 250, 3);//scan led 7 segment
   SCH_Add_Task(blinky, 0, 500, 4);//toggle led0
 
   while (1)
