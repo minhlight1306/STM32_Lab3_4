@@ -26,7 +26,7 @@ Core/Src/led_traffic.o: ../Core/Src/led_traffic.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Core/Inc/fsm_automatic.h ../Core/Inc/fsm_manual.h \
- ../Core/Inc/scan7led.h
+ ../Core/Inc/scan7led.h ../Core/Inc/scheduler.h
 
 ../Core/Inc/led_traffic.h:
 
@@ -93,3 +93,5 @@ Core/Src/led_traffic.o: ../Core/Src/led_traffic.c \
 ../Core/Inc/fsm_manual.h:
 
 ../Core/Inc/scan7led.h:
+
+../Core/Inc/scheduler.h:

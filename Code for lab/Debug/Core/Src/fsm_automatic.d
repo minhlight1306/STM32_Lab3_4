@@ -27,7 +27,7 @@ Core/Src/fsm_automatic.o: ../Core/Src/fsm_automatic.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Core/Inc/fsm_automatic.h ../Core/Inc/fsm_manual.h \
- ../Core/Inc/scan7led.h
+ ../Core/Inc/scan7led.h ../Core/Inc/scheduler.h
 
 ../Core/Inc/fsm_automatic.h:
 
@@ -96,3 +96,5 @@ Core/Src/fsm_automatic.o: ../Core/Src/fsm_automatic.c \
 ../Core/Inc/fsm_manual.h:
 
 ../Core/Inc/scan7led.h:
+
+../Core/Inc/scheduler.h:

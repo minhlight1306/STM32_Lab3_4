@@ -1,74 +1,109 @@
 #include "scheduler.h"
 
-sTasks SCH_tasks_G[SCH_MAX_TASKS];
-unsigned char current_index_task = 0;
-
-IWDG_HandleTypeDef hiwdg ;
-static uint32_t counter_for_watchdog = 0;
+//sTasks SCH_tasks_G[SCH_MAX_TASKS];
+uint8_t numTask = 0;
 
 void SCH_Init(void){
-	current_index_task = 0;
-	for(unsigned char i = 0; i < SCH_MAX_TASKS; i++){
-		SCH_Delete_Task(i);
+	for(uint8_t i = 0; i < SCH_MAX_TASKS; i++){
+		SCH_Delete(i);
 	}
+	numTask = 0;
 }
-unsigned char SCH_Add_Task(void (*pFunction)(), unsigned int DELAY, unsigned int PERIOD){
-	while((SCH_tasks_G[current_index_task].pTask != 0) && (current_index_task < SCH_MAX_TASKS))
-		current_index_task++;
-	if(current_index_task < SCH_MAX_TASKS){
-		SCH_tasks_G[current_index_task].pTask = pFunction;
-		SCH_tasks_G[current_index_task].Delay = DELAY;
-		SCH_tasks_G[current_index_task].Period = PERIOD;
-		SCH_tasks_G[current_index_task].RunMe = 0;
+// modifing
+void SCH_Add_Task(void (*pFunction)(), uint32_t DELAY,
+								uint32_t PERIOD, uint8_t TaskID){
+	if(numTask >= SCH_MAX_TASKS) return;
 
-		SCH_tasks_G[current_index_task].TaskID = current_index_task;
-		return current_index_task;
-	}
-	Error_code_G = ERROR_SCH_TOO_MANY_TASKS;
-	return SCH_MAX_TASKS;
-}
-void SCH_Update(void){
-	unsigned char Index ;
-	for ( Index = 0; Index < SCH_MAX_TASKS; Index++){
-		if( SCH_tasks_G[ Index ] . pTask) {
-			if( SCH_tasks_G[ Index ] . Delay == 0){
-				SCH_tasks_G[ Index ].RunMe += 1;
-				if( SCH_tasks_G[ Index ].Period ){
-					SCH_tasks_G[ Index ].Delay = SCH_tasks_G[ Index ].Period;
-				}
+	uint8_t index = 0;
+	uint32_t remaining_delay = DELAY / 10;
+
+	for(int i = 0; i < SCH_MAX_TASKS; i++){
+		if(SCH_tasks_G[i].pTask){
+			if(SCH_tasks_G[i].Delay <= remaining_delay){
+				remaining_delay -= SCH_tasks_G[i].Delay;
 			}
 			else{
-				SCH_tasks_G[ Index ].Delay -= 1;
+				index = i;
+				break;
 			}
+		}
+		else{
+			index = i;
+			break;
+		}
+	}
+
+	if(index >= SCH_MAX_TASKS) return;
+	for(int i = SCH_MAX_TASKS - 1; i > index; i--){
+		SCH_tasks_G[i] = SCH_tasks_G[i - 1];
+	}
+
+	SCH_tasks_G[index].pTask = pFunction;
+    SCH_tasks_G[index].Delay = remaining_delay;
+    SCH_tasks_G[index].Period = PERIOD;
+    SCH_tasks_G[index].RunMe = 0;
+    SCH_tasks_G[index].TaskID = TaskID;
+
+    if (index + 1 < SCH_MAX_TASKS && SCH_tasks_G[index + 1].pTask) {
+    	SCH_tasks_G[index + 1].Delay -= remaining_delay;
+    }
+}
+void SCH_Update(void){
+	if(numTask == 0) return;
+
+	if(SCH_tasks_G[0].pTask) {
+		if(SCH_tasks_G[0].Delay == 0){
+			SCH_tasks_G[0].RunMe++;
+			if(SCH_tasks_G[0].Period){
+				SCH_tasks_G[0].Delay = SCH_tasks_G[0].Period;
+			}
+		}
+		else{
+			SCH_tasks_G[0].Delay--;
 		}
 	}
 }
 void SCH_Dispatch_Tasks(void){
-	for(current_index_task = 0; current_index_task < SCH_MAX_TASKS; current_index_task++){
-		if(SCH_tasks_G[current_index_task].RunMe > 0){
-			SCH_tasks_G[current_index_task].RunMe--;
-			(*SCH_tasks_G[current_index_task].pTask)();
-			if(SCH_tasks_G[current_index_task].Period == 0){
-				SCH_Delete_Task(current_index_task);
+	if(numTask == 0) return;
+
+	if(SCH_tasks_G[0].pTask){
+		if(SCH_tasks_G[0].RunMe > 0){
+			SCH_tasks_G[0].RunMe--;
+			(*SCH_tasks_G[0].pTask)();
+			if(SCH_tasks_G[0].Period != 0){
+				SCH_Add_Task(SCH_tasks_G[0].pTask, SCH_tasks_G[0].Period,
+					         SCH_tasks_G[0].Period, SCH_tasks_G[0].TaskID);
 			}
+			SCH_Delete_Task(0);
 		}
 	}
 }
-unsigned char SCH_Delete_Task(const tByte TASK_INDEX){
-	unsigned char Return_code ;
-	if( SCH_tasks_G[TASK_INDEX].pTask == 0){
-	Error_code_G = ERROR_SCH_CANNOT_DELETE_TASK;
-
-		Return_code = RETURN_ERROR;
-	}
-	else{
-		Return_code = RETURN_NORMAL;
-	}
+void SCH_Delete(uint8_t TASK_INDEX){
 	SCH_tasks_G[TASK_INDEX].pTask = 0x0000 ;
 	SCH_tasks_G[TASK_INDEX].Delay = 0;
 	SCH_tasks_G[TASK_INDEX].Period = 0;
 	SCH_tasks_G[TASK_INDEX].RunMe = 0;
-	return Return_code ;
+	SCH_tasks_G[TASK_INDEX].TaskID = 0;
+}
+void SCH_Delete_Task(uint8_t TASK_INDEX){
+	if(TASK_INDEX >= SCH_MAX_TASKS || numTask == 0){
+		return;
+	}
+	uint8_t final = 0;
+	SCH_Delete(TASK_INDEX);
+	for (uint8_t i = TASK_INDEX; i < SCH_MAX_TASKS; i++){
+		SCH_tasks_G[i].pTask = SCH_tasks_G[i + 1].pTask;
+		SCH_tasks_G[i].Delay = SCH_tasks_G[i + 1].Delay;
+		SCH_tasks_G[i].Period = SCH_tasks_G[i + 1].Period;
+		SCH_tasks_G[i].RunMe = SCH_tasks_G[i + 1].RunMe;
+		SCH_tasks_G[i].TaskID = SCH_tasks_G[i + 1].TaskID;
+		if (SCH_tasks_G[i].pTask == 0x0000){
+			final = i;
+			break;
+		}
+	}
+	SCH_Delete(final);
+	numTask--;
 }
 void SCH_Go_To_Sleep(){
 
@@ -96,28 +131,4 @@ void SCH_Report_Status ( void ) {
 #endif
 }
 
-void MX_IWDG_Init( void ) {
-	hiwdg.Instance = IWDG;
-	hiwdg.Init.Prescaler = IWDG_PRESCALER_32;
-	hiwdg.Init.Reload = 4095;
-	if (HAL_IWDG_Init(&hiwdg) != HAL_OK) {
-		Error_Handler();
-	}
-}
-void Watchdog_Refresh( void ) {
-	HAL_IWDG_Refresh(&hiwdg) ;
-}
-unsigned char Is_Watchdog_Reset (void) {
-	if( counter_for_watchdog > 3) {
-		return 1;
-	}
-	return 0;
-}
-void Watchdog_Counting( void ) {
-	counter_for_watchdog++;
-}
-
-void Reset_Watchdog_Counting( void ) {
-	counter_for_watchdog = 0;
-}
 

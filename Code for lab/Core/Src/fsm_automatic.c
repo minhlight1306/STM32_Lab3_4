@@ -9,17 +9,14 @@
 #include "global.h"
 
 void counter(){
-	if(isTimerExpired(2)){
 		led_count[0]--;
 		led_count[1]--;
-		setTimer(2, 1000);
-	}
 }
 void fsm_automatic_run(){
 	switch(status){
 		case INIT:
 			status = AUTO_RED_GREEN;
-			setTimer(0, 3000);//time automatic
+			//time automatic
 			break;
 		case AUTO_RED_GREEN:
 			traffic_automatic();

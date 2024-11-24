@@ -37,10 +37,6 @@ extern int led_count[2];
 extern const uint8_t MAX_LED;
 extern uint8_t index_led;
 extern int led_buffer[4];
-extern int light1Mode;
-extern int light2Mode;
 
-extern int light1Time;
-extern int light2Time;
 
 #endif /* INC_GLOBAL_H_ */

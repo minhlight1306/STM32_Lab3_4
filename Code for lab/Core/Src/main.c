@@ -56,7 +56,13 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void blinky(){
+	  HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+}
+void fsm(){
+	  fsm_automatic_run();
+	  fsm_manual_run();
+}
 /* USER CODE END 0 */
 
 /**
@@ -75,7 +81,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SCH_Init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -94,19 +100,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer(0, 100);//time automatic
-  setTimer(1, 100);//scan led 7 segment
-  setTimer(2, 100);//update led buffer
-  setTimer(4, 100);//toggle led0
+  SCH_Add_Task(fsm, 0, 1000, 1);//time automatic
+  SCH_Add_Task(scan7led, 0, 250, 2);//scan led 7 segment
+  SCH_Add_Task(counter, 0, 1000, 3);//update led buffer
+  SCH_Add_Task(blinky, 0, 500, 4);//toggle led0
 
   while (1)
   {
-	  fsm_automatic_run();
-	  fsm_manual_run();
-	  if(isTimerExpired(4) == 1){
-		  setTimer(4, 500);
-		  HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
-	  }
+	  SCH_Dispatch_Tasks();
 
     /* USER CODE END WHILE */
 

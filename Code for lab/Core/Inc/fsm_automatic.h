@@ -9,6 +9,6 @@
 #define INC_FSM_AUTOMATIC_H_
 
 void fsm_automatic_run();
-
+void counter();
 
 #endif /* INC_FSM_AUTOMATIC_H_ */

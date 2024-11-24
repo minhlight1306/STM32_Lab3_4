@@ -14,8 +14,3 @@ const uint8_t MAX_LED = 4;
 uint8_t index_led = 0;
 int led_buffer[4] = {3, 2, 5, 5};
 
-int light1Mode=0;
-int light2Mode=2;
-
-int light1Time=8;
-int light2Time=3;

@@ -31,7 +31,7 @@ void SCH_Init(void);
 void SCH_Add_Task(void (*pFunction)(), uint32_t DELAY,
 						uint32_t PERIOD, uint8_t TaskID);
 
-// dem thoi gian delay va set RunMe lam co
+// cap nhat trang thai co het thoi gian delay chua, neu co RunMe++
 void SCH_Update(void);
 
 // kiem tra task da thuc thi chua
@@ -40,10 +40,6 @@ void SCH_Dispatch_Tasks(void);
 // xoa task tai vi tri index
 void SCH_Delete_Task(uint8_t TASK_INDEX);
 void SCH_Delete(uint8_t TASK_INDEX);
-void SCH_Delete_ID(uint8_t ID);
-void Task1();
-void Task2();
-void Task3();
-void Task4();
+
 
 #endif /* INC_SCHEDULER_H_ */
