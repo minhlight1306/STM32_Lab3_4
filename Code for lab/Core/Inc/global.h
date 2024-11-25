@@ -38,5 +38,6 @@ extern const uint8_t MAX_LED;
 extern uint8_t index_led;
 extern int led_buffer[4];
 
+void blinky();
 
 #endif /* INC_GLOBAL_H_ */

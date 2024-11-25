@@ -27,6 +27,7 @@ void fsm_automatic_run(){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
+				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
 			}
 			if(led_count[1] == 0){
 				status = AUTO_RED_YELLOW;
@@ -42,6 +43,7 @@ void fsm_automatic_run(){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
+				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
 			}
 			if(led_count[0] == 0){
 				status = AUTO_GREEN_RED;
@@ -58,6 +60,7 @@ void fsm_automatic_run(){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
+				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
 			}
 			if(led_count[0] == 0){
 				status = AUTO_YELLOW_RED;
@@ -73,6 +76,7 @@ void fsm_automatic_run(){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
+				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
 			}
 			if(led_count[0] == 0){
 				status = AUTO_RED_GREEN;

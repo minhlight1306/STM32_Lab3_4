@@ -14,3 +14,6 @@ const uint8_t MAX_LED = 4;
 uint8_t index_led = 0;
 int led_buffer[4] = {3, 2, 5, 5};
 
+void blinky(){
+	  HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+}

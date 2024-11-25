@@ -28,6 +28,8 @@ void toAutomatic(){
 		count[2] = temp_count[2];
 		led_count[0] = count[0];
 		led_count[1] = count[2];
+		SCH_Delete_Task(2);
+		SCH_Add_Task(fsm_automatic_run, 0, 1000, 1);
 }
 void toggleLed(){
 	switch(status){

@@ -22,7 +22,8 @@ typedef struct{
 
 #define SCH_MAX_TASKS 20
 #define NO_TASK_ID 0
-sTasks SCH_tasks_G[SCH_MAX_TASKS];
+//sTasks SCH_tasks_G[SCH_MAX_TASKS];
+extern uint8_t numTask;
 
 // khoi tao mot mang task
 void SCH_Init(void);
@@ -38,8 +39,8 @@ void SCH_Update(void);
 void SCH_Dispatch_Tasks(void);
 
 // xoa task tai vi tri index
-void SCH_Delete_Task(uint8_t TASK_INDEX);
-void SCH_Delete(uint8_t TASK_INDEX);
+void SCH_Delete_Task(uint32_t id);
+void SCH_Delete(uint32_t TASK_INDEX);
 
 
 #endif /* INC_SCHEDULER_H_ */
