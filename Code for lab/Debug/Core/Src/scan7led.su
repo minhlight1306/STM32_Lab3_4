@@ -1,0 +1,4 @@
+scan7led.c:9:6:updateBuffer	16	static
+scan7led.c:28:6:displayDigit	16	static
+scan7led.c:37:6:update7SEG	16	static
+scan7led.c:69:6:scan7led	8	static

@@ -1,0 +1,5 @@
+button.c:21:6:readKey	8	static
+button.c:26:5:isButtonPressed	16	static
+button.c:34:5:isButtonLongPressed	16	static
+button.c:42:6:subKeyProcess	16	static
+button.c:48:6:getKeyInput	16	static
