@@ -39,5 +39,9 @@ extern uint8_t index_led;
 extern int led_buffer[4];
 
 void blinky();
+void blinkyled1();
+void blinkyled2();
+void blinkyled3();
+void blinkyled4();
 
 #endif /* INC_GLOBAL_H_ */
