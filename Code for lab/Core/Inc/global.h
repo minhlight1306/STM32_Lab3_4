@@ -27,6 +27,7 @@
 #include "fsm_manual.h"
 #include "main.h"
 #include "scan7led.h"
+#include "scheduling.h"
 #include "scheduler.h"
 
 extern int status;

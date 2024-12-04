@@ -67,5 +67,6 @@ void update7SEG(int index) {
 	}
 }
 void scan7led(){
-		update7SEG(index_led);
+	update7SEG(index_led);
 }
+

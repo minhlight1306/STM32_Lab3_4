@@ -6,7 +6,7 @@
  */
 #include "global.h"
 
-int status = INIT;
+int status = AUTO_RED_GREEN;
 int count[3] = {5, 2, 3};
 int temp_count[3] = {5, 2, 3};
 int led_count[2] = {5, 3};

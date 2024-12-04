@@ -13,6 +13,5 @@
 
 void scan7led();
 void updateBuffer(int time1, int time2);
-//void display7SEG();
 
 #endif /* INC_SCAN7LED_H_ */

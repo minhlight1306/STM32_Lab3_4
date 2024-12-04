@@ -21,13 +21,14 @@ void fsm_automatic_run(){
 		case AUTO_RED_GREEN:
 			traffic_automatic();
 			updateBuffer(led_count[1], led_count[0]);
-			scan7led();
 			counter();
 			if(isButtonPressed(1)){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
 				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
+				SCH_Add_Task(toggleLed, 0, 500, 6);
+				SCH_Delete_Task(1);
 			}
 			if(led_count[1] == 0){
 				status = AUTO_RED_YELLOW;
@@ -37,13 +38,14 @@ void fsm_automatic_run(){
 		case AUTO_RED_YELLOW:
 			traffic_automatic();
 			updateBuffer(led_count[1], led_count[0]);
-			scan7led();
 			counter();
 			if(isButtonPressed(1)){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
 				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
+				SCH_Add_Task(toggleLed, 0, 500, 6);
+				SCH_Delete_Task(1);
 			}
 			if(led_count[0] == 0){
 				status = AUTO_GREEN_RED;
@@ -54,13 +56,14 @@ void fsm_automatic_run(){
 		case AUTO_GREEN_RED:
 			traffic_automatic();
 			updateBuffer(led_count[1], led_count[0]);
-			scan7led();
 			counter();
 			if(isButtonPressed(1)){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
 				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
+				SCH_Add_Task(toggleLed, 0, 500, 6);
+				SCH_Delete_Task(1);
 			}
 			if(led_count[0] == 0){
 				status = AUTO_YELLOW_RED;
@@ -70,13 +73,14 @@ void fsm_automatic_run(){
 		case AUTO_YELLOW_RED:
 			traffic_automatic();
 			updateBuffer(led_count[1], led_count[0]);
-			scan7led();
 			counter();
 			if(isButtonPressed(1)){
 				status = MODE_2;
 				clearAllLed();
 				updateBuffer(MODE_2 - 11, count[0]);
 				SCH_Add_Task(fsm_manual_run, 0, 500, 2);
+				SCH_Add_Task(toggleLed, 0, 500, 6);
+				SCH_Delete_Task(1);
 			}
 			if(led_count[0] == 0){
 				status = AUTO_RED_GREEN;

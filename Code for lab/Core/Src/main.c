@@ -95,15 +95,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_Add_Task(fsm_automatic_run, 10, 1000, 1);//time automatic
-  SCH_Add_Task(fsm_manual_run, 50, 0, 2);//time manual
-  SCH_Add_Task(scan7led, 0, 250, 3);//scan led 7 segment
-  SCH_Add_Task(blinky, 500, 500, 4);//toggle led0
-
-//  SCH_Add_Task(blinkyled1, 0, 500, 1);
-//  SCH_Add_Task(blinkyled2, 500, 1000, 2);
-//  SCH_Add_Task(blinkyled3, 1000, 1500, 3);
-//  SCH_Add_Task(blinkyled4, 1500, 2000, 4);
+  SCH_Add_Task(fsm_automatic_run, 0, 1000, 1);//time automatic
+  //time manual
+  SCH_Add_Task(scan7led, 10, 250, 3);//scan led 7 segment
+  SCH_Add_Task(blinky, 15, 500, 4);//toggle led0
+  SCH_Add_Task(getKeyInput, 10, 10, 5);
+//  SCH_Add_Task(blinkyled1, 0, 500);
+//  SCH_Add_Task(blinkyled2, 500, 1000);
+//  SCH_Add_Task(blinkyled3, 1000, 1500);
+//  SCH_Add_Task(blinkyled4, 1500, 2000);
 
   while (1)
   {
@@ -251,8 +251,6 @@ static void MX_GPIO_Init(void)
 
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 {
-//	timerRun();
-	getKeyInput();
 	SCH_Update();
 }
 /* USER CODE END 4 */

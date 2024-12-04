@@ -28,7 +28,8 @@ void toAutomatic(){
 		count[2] = temp_count[2];
 		led_count[0] = count[0];
 		led_count[1] = count[2];
-		SCH_Delete_Task(2);
+		SCH_Delete_Task(2); // turn off manual mode
+		SCH_Delete_Task(6); // turn off toggle
 		SCH_Add_Task(fsm_automatic_run, 0, 1000, 1);
 }
 void toggleLed(){
@@ -49,8 +50,6 @@ void toggleLed(){
 void fsm_manual_run(){
 	switch(status){
 		case MODE_2:
-			scan7led();
-			toggleLed();
 			if(isButtonPressed(1)){
 				status = MODE_3;
 				clearAllLed();
@@ -69,8 +68,6 @@ void fsm_manual_run(){
 
 			break;
 		case MODE_3:
-			scan7led();
-			toggleLed();
 			if(isButtonPressed(1)){
 				status = MODE_4;
 				clearAllLed();
@@ -89,8 +86,6 @@ void fsm_manual_run(){
 
 			break;
 		case MODE_4:
-			scan7led();
-			toggleLed();
 			if(isButtonPressed(1)){
 				toAutomatic();//so sanh dieu kien va cap nhat gia tri
 			}

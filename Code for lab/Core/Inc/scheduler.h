@@ -21,16 +21,14 @@ typedef struct{
 }sTasks;
 
 #define SCH_MAX_TASKS 20
-#define NO_TASK_ID 0
-//sTasks SCH_tasks_G[SCH_MAX_TASKS];
-extern uint8_t numTask;
+extern uint32_t numTask;
 
 // khoi tao mot mang task
 void SCH_Init(void);
 
 // them 1 task vao mang
 void SCH_Add_Task(void (*pFunction)(), uint32_t DELAY,
-						uint32_t PERIOD, uint8_t TaskID);
+						uint32_t PERIOD, uint32_t TaskID);
 
 // cap nhat trang thai co het thoi gian delay chua, neu co RunMe++
 void SCH_Update(void);
@@ -39,7 +37,7 @@ void SCH_Update(void);
 void SCH_Dispatch_Tasks(void);
 
 // xoa task tai vi tri index
-void SCH_Delete_Task(uint32_t id);
+uint8_t SCH_Delete_Task(uint32_t id);
 void SCH_Delete(uint32_t TASK_INDEX);
 
 
